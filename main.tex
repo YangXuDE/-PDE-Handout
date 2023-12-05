@@ -581,6 +581,207 @@ u_{it} - \Delta u = u_{it} - u_{i+1,j} - u_{i,j+1} - \cdots - u_{i+1,j+1} + f
 \end{figure}
 
 
+
+
+
+\section*{III. Simple Solution Techniques}
+
+\subsection*{III.1. Parabolic Differential Equation in Homogeneous Form}
+
+Homogeneous Dirichlet Boundary Conditions (BCs) on domain $\Omega = (0, L)$:
+
+\begin{align*}
+\text{PDE} \quad & u_t = a u_{xx} & \text{for } x \in (0,L), t > 0 \\
+\text{BC} \quad & u(t,0) = u(t,L) = 0 & \text{for } t \geq 0 \\
+\text{IC} \quad & u(0,x) = u_0(x) & \text{for } x \in (0,L) \\
+\end{align*}
+
+Product approach / ansatz $u(t,x) = U(t)V(x)$:
+
+PDE $\rightarrow U(t)V(x) = aU(t)V''(x)$
+
+Separation of the variables:
+
+\[
+\frac{U'(t)}{U(t)} = a\frac{V''(x)}{V(x)} = -\lambda^2 \text{ (constant)}.
+\]
+
+Independent of $x$ implies constant.
+
+$\rightarrow$ ODE $aV''(x) \sim V(x)$
+
+BC $U(t)V(0) = U(t)V(L) = 0$
+
+$U(t) = 0$ provides $u \equiv 0$, boring.
+
+$\Rightarrow V(0) = V(L) = 0$
+
+\[
+V(x) = \sin \frac{k\pi x}{L} \text{ with } k = 1,2,3,\ldots
+\]
+
+\[
+aV''(x) = -a \left(\frac{k\pi}{L}\right)^2 V(x) \Rightarrow U'(t) = -a \left(\frac{k\pi}{L}\right)^2 U(t)
+\]
+
+\[
+\Rightarrow U(t) = Ce^{-a\left(\frac{k\pi}{L}\right)^2 t}, \quad C \in \mathbb{R}
+\]
+
+For every $k = 1,2,3,\ldots$ we get the solutions:
+
+\[
+u(t,x) = Ce^{-a\left(\frac{k\pi}{L}\right)^2 t} \sin \frac{k\pi x}{L}, \quad C \in \mathbb{R}
+\]
+
+Coefficient $\beta_k$
+
+PDE (linear $\rightarrow$ linear combination are solution):
+
+\[
+u(t,x) = \sum_{k=1}^{\infty} \beta_k e^{-a\left(\frac{k\pi}{L}\right)^2 t} \sin \frac{k\pi x}{L}
+\]
+
+\subsection*{Example: $L = \pi, a = 1, u = \sum \beta_k e^{-k^2 t} \sin kx$}
+
+IC:
+
+\[
+u(0,x) = \sum_{k=1}^{\infty} \beta_k \sin \frac{k\pi x}{L} = u_0(x) \quad \text{(x)}
+\]
+
+Orthogonal with respect to $L^2([0,L])$.
+
+Represents $f,g \in L^2([0,L])$:
+
+\[
+\langle f, g \rangle_{L^2([0,L])} = \int_0^L f(x) g(x) dx
+\]
+
+
+
+Now multiply $(x)$ by $\sin \frac{l\pi x}{L}, \ l = 1,2,3,\ldots$:
+
+\begin{align*}
+\int_0^L \sum_{k=1}^{\infty} \beta_k \sin \frac{k\pi x}{L} \sin \frac{l\pi x}{L} dx &= \int_0^L u_0(x) \sin \frac{l\pi x}{L} dx \\
+\sum_{k=1}^{\infty} \beta_k \int_0^L \sin \frac{k\pi x}{L} \sin \frac{l\pi x}{L} dx &= \frac{L}{2} \delta_{kl} = \begin{cases} 0 & \text{for } k \neq l \\ \frac{L}{2} & \text{for } k = l \end{cases}
+\end{align*}
+
+Hence,
+
+\begin{align*}
+\frac{L}{2} \beta_l &= \int_0^L u_0(x) \sin \frac{l\pi x}{L} dx \\
+\text{or} \quad \beta_l &= \frac{2}{L} \int_0^L u_0(x) \sin \frac{l\pi x}{L} dx
+\end{align*}
+
+Fourier coefficients can be computed for all $u_0 \in L^2([0, L])$.
+
+
+
+
+\subsection*{Inhomogeneous Boundary Conditions (BCs).}
+
+\begin{align*}
+\text{PDE} \quad & u_{t} = a u_{xx}, & x \in (0, L), t > 0 \\
+\text{BC} \quad & u(t,0) = q_1, \ u(t,L) = q_2 \in \mathbb{R}, & \text{for } t \geq 0 \\
+\text{IC} \quad & u(0,x) = u_0(x), & x \in (0,L) \\
+\end{align*}
+
+\[
+w(x) = q_1 + \frac{q_2 - q_1}{L} x
+\]
+
+$v + w = u$ with $v_{t} = u_{t}$ and $v_{xx} = u_{xx}$
+
+Boundary Value Problem (BVP) for $v$
+\begin{align*}
+\text{PDE} \quad & v_{t} = a v_{xx}, & x \in (0, L), t > 0 \\
+\text{BC} \quad & v(t,0) = v(t,L) = 0, & t > 0 \\
+\text{IC} \quad & v(0,x) = u_0(x) - w(x), & x \in (0,L) \\
+\end{align*}
+
+\section*{II. Spectral Decomposition}
+
+\begin{align*}
+\text{PDE} \quad & u_{t} = a u_{xx} + f(t,x), & x \in (0, L), t > 0 \\
+\text{BC} \quad & u(t,0) = u(t,L) = 0, & t > 0 \\
+\text{IC} \quad & u(0,x) = u_0(x), & \\
+\end{align*}
+
+Approach $u(t,x) = \sum_{k=1}^{\infty} V_k(t) \sin\left(\frac{k \pi x}{L}\right)$
+
+\begin{itemize}
+\item $V_k(t)$ -- time-dependent intensity.
+\item $\sin\left(\frac{k \pi x}{L}\right)$ -- eigenmodes.
+\end{itemize}
+
+\begin{align*}
+u_{t} &= \sum_{k=1}^{\infty} V_k'(t) \sin\left(\frac{k \pi x}{L}\right) \\
+u_{xx} &= \sum_{k=1}^{\infty} V_k(t) \left(-\frac{k \pi}{L}\right)^2 \sin\left(\frac{k \pi x}{L}\right) \\
+f(t,x) &= \sum_{k=1}^{\infty} F_k(t) \sin\left(\frac{k \pi x}{L}\right) \\
+u_0(x) &= \sum_{k=1}^{\infty} M_k \sin\left(\frac{k \pi x}{L}\right) \\
+\end{align*}
+
+\begin{itemize}
+\item $\sin\left(\frac{k \pi x}{L}\right)$ eigenmodes are pairwise orthogonal so they are linear independent.
+\end{itemize}
+
+
+
+
+\section*{II.2. Spectral Decomposition}
+
+Consider the PDE with spectral decomposition:
+\begin{align*}
+\text{PDE} \quad & u_{t} = a u_{xx} + f(t,x), & x \in (0,L), t > 0 \\
+\text{BC} \quad & u(t,0) = u(t,L) = 0, & t \geq 0 \\
+\text{IC} \quad & u(0,x) = u_0(x), & \\
+\end{align*}
+
+The approach for the solution:
+\[ u(t,x) = \sum_{k=1}^{\infty} V_k(t) \sin\left(\frac{k\pi x}{L}\right) \]
+where \( V_k(t) \) represents the time-dependent intensity and \( \sin\left(\frac{k\pi x}{L}\right) \) are the eigenmodes.
+
+The temporal and spatial derivatives are given by:
+\begin{align*}
+u_t &= \sum_{k=1}^{\infty} V_k'(t) \sin\left(\frac{k\pi x}{L}\right), \\
+u_{xx} &= \sum_{k=1}^{\infty} V_k(t) \left(-\left(\frac{k\pi}{L}\right)^2\right) \sin\left(\frac{k\pi x}{L}\right).
+\end{align*}
+
+Let the inhomogeneity \( f(t,x) \) and the initial condition \( u_0(x) \) be represented as:
+\begin{align*}
+f(t,x) &= \sum_{k=1}^{\infty} f_k(t) \sin\left(\frac{k\pi x}{L}\right), \\
+u_0(x) &= \sum_{k=1}^{\infty} M_k \sin\left(\frac{k\pi x}{L}\right),
+\end{align*}
+where the eigenmodes \( \sin\left(\frac{k\pi x}{L}\right) \) are pairwise orthogonal and linearly independent.
+
+Upon equating coefficients, we get an ordinary differential equation for each mode \( V_k(t) \):
+\[ V_k'(t) = -a\left(\frac{k\pi}{L}\right)^2 V_k(t) + f_k(t), \]
+with the initial condition \( V_k(0) = M_k \).
+
+The spectral decomposition for the PDE for each single mode \( \delta_k = \delta_k(t) \) is:
+\[ u_k(t) = -a\left(\frac{k\pi}{L}\right)^2 V_k(t) + \alpha_k(t), \]
+where \( \alpha_k(t) \) represents the coefficients of the inhomogeneity in the mode \( k \).
+
+\textbf{Remark:} Higher frequency modes, i.e., higher \( k \) values, fade out faster due to the factor \( -a\left(\frac{k\pi}{L}\right)^2 \) in the spectral decomposition.
+
+
+Example: string on $\Omega = (0,\pi)$ with inner and outer damping.
+
+\begin{align*}
+\delta u_{tt} + d_{out} u_{t} &= P u_{xx} + d_{in} u_{xxt}, & x \in (0,\pi), t > 0 \\
+\delta \sum_{k=1}^{\infty} \delta_k''(t) \sin(kx) &+ (d_{out} + k^2 d_{in}) \delta_k'(t) + P k^2 \delta_k(t) = 0
+\end{align*}
+
+Every intensity $\delta_k$ follows the ODE of a one-way oscillator.
+
+
+\end{document}
+
+
+
+\end{document}
+
 \end{document}
 
 
